@@ -25,10 +25,17 @@ namespace BlazorEFCoreMultitenant
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<TenantProvider>();
+
             services.AddDbContextFactory<SingleDbContext>(
                 opts => opts.UseSqlite("Data Source=alltenants.sqlite"),
                 ServiceLifetime.Scoped);
-            services.AddDbContextFactory<MultipleDbContext>(lifetime: ServiceLifetime.Transient);
+            
+            services.AddDbContextFactory<MultipleDbContext>((sp, opts) =>
+            {
+                var tenantProvider = sp.GetRequiredService<TenantProvider>();
+                opts.UseSqlite($"Data Source={tenantProvider.GetTenantShortName()}.sqlite");
+            }, ServiceLifetime.Transient);
+            
             services.AddScoped<DatabaseInitializer>();
         }
 

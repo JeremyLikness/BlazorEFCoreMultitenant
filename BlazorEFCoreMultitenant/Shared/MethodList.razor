@@ -1,0 +1,21 @@
+﻿@if (methods != null)
+{
+	foreach (var method in methods)
+	{
+		<MethodItem MethodToDisplay="@method"/>
+	}
+}
+
+@code {
+	[Parameter]
+	public Func<ICustomerContext> GetContext { get; set;  }
+
+	protected override async Task OnInitializedAsync()
+	{
+		using var context = GetContext();
+		methods = await context.Methods.ToListAsync();
+		await base.OnInitializedAsync();
+	}
+
+	private List<DataMethod> methods = null;
+}
