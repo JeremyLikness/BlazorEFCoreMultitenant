@@ -1,0 +1,29 @@
+﻿@page "/Multiple"
+
+@inject TenantProvider TenantProvider
+@inject IDbContextFactory<MultipleDbContext> Factory
+
+<h1>Multiple Databases</h1>
+
+<p>Your current tenant is: <strong>@TenantProvider.GetTenant()</strong></p>
+
+<p><a href="/">Back to tenant selection</a></p>
+
+@if (methods != null)
+{
+	foreach (var method in methods)
+	{
+		<MethodItem MethodToDisplay="@method"/>
+	}
+}
+
+@code {
+	protected override async Task OnInitializedAsync()
+	{
+		using var context = Factory.CreateDbContext();
+		methods = await context.Methods.ToListAsync();
+		await base.OnInitializedAsync();
+	}
+
+	private List<DataMethod> methods = null;
+}

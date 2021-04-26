@@ -1,0 +1,9 @@
+﻿<h2>@MethodToDisplay.ParentType : @MethodToDisplay.ReturnType @MethodToDisplay.Name</h2>
+@foreach (var parameter in MethodToDisplay.Parameters)
+{
+	<ParameterItem ParameterToDisplay="@parameter"/>
+}
+@code {
+	[Parameter]
+	public DataMethod MethodToDisplay { get; set; }
+}

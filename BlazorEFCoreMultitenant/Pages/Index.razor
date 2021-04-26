@@ -1,0 +1,78 @@
+﻿@page "/"
+
+@inject TenantProvider TenantProvider
+@inject DatabaseInitializer Initializer
+
+@using System.Threading.Tasks;
+
+<h1>Welcome to the Blazor EF Core Multitenancy Example App</h1>
+
+<hr/>
+
+<p>The first time you run this app, you should initialize the databases. It is only necessary to do it
+once, but will not create issues if you do it multiple times.</p>
+
+@if (initializing)
+{
+	<p>Initializing...</p>
+}
+else
+{
+	<button @onclick="InitializeDatabaseAsync">Initialize Databases</button>
+}
+
+@if (success)
+{
+	<div class="alert alert-success"><span class="oi oi-circle-check"></span>&nbsp;Databases successfully initialized.</div>
+}
+
+@if (!string.IsNullOrWhiteSpace(error))
+{
+	<div class="alert alert-danger"><span class="oi oi-warninng"></span>&nbsp;Database initialization failed: @error</div>
+}
+
+<br/>
+<hr/>
+
+<p>Choose your "tenant":</p>
+
+@foreach (var tenant in TypeProvider.GetTypes().Select(t => t.FullName))
+{
+	<button disabled="@(tenant == TenantProvider.GetTenant())"
+		@onclick="() => TenantProvider.SetTenant(tenant)">@tenant</button>
+		<span>&nbsp;</span>
+}
+
+<hr/>
+<p>Navigate to the examples:</p>
+
+<p><a href="/Single">Single database</a></p>
+<p><a href="/Multiple">Multiple databases</a></p>
+
+@code {
+	private bool initializing = false;
+	private bool initialized = false;
+	private bool success = false;
+	private string error; 
+
+	private async Task InitializeDatabaseAsync()
+	{
+		initialized = success = false;
+		error = string.Empty;
+		initializing = true;
+		try
+		{
+			await Initializer.InitializeAsync();
+			success = true;
+		}
+		catch (Exception ex)
+		{
+			success = false;
+			error = ex.Message;
+		}
+		finally
+		{
+			initializing = false;
+		}
+	}
+}

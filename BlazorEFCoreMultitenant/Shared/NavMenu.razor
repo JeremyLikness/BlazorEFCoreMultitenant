@@ -1,0 +1,54 @@
+﻿@inject TenantProvider TenantProvider
+@implements IDisposable
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">Blazor EF Core (@tenant)</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </li>        
+    </ul>
+</div>
+
+@code {
+    private Guid registration = default;
+    private string tenant;
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    protected override void OnInitialized()
+    {
+        tenant = TenantProvider.GetTenantShortName();
+        if (registration == default)
+        {
+            registration = TenantProvider.Register(() =>
+            {
+                tenant = TenantProvider.GetTenantShortName();
+                InvokeAsync(StateHasChanged);
+            });
+        }
+        base.OnInitialized();
+    }
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    public void Dispose()
+    {
+        if (registration != default)
+        {
+            TenantProvider.Unregister(registration);
+        }
+    }
+}
