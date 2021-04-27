@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31213.239
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorEFCoreMultitenant", "BlazorEFCoreMultitenant\BlazorEFCoreMultitenant.csproj", "{9C253C22-7FEF-431D-84E8-F3772E6C61DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorEFCoreMultitenant", "BlazorEFCoreMultitenant\BlazorEFCoreMultitenant.csproj", "{9C253C22-7FEF-431D-84E8-F3772E6C61DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextFactoryBenchmarks", "ContextFactoryBenchmarks\ContextFactoryBenchmarks.csproj", "{A29062AD-5B35-46E6-A408-A74A435DC7BE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2DB0EAD7-E8C1-41B6-9CBA-CAE4BB1F5BC4}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,10 @@ Global
 		{9C253C22-7FEF-431D-84E8-F3772E6C61DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C253C22-7FEF-431D-84E8-F3772E6C61DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C253C22-7FEF-431D-84E8-F3772E6C61DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A29062AD-5B35-46E6-A408-A74A435DC7BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A29062AD-5B35-46E6-A408-A74A435DC7BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A29062AD-5B35-46E6-A408-A74A435DC7BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A29062AD-5B35-46E6-A408-A74A435DC7BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

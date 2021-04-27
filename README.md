@@ -29,7 +29,27 @@ of the `TenantProvider`. This is the same one use in the rest of the application
 ### Multiple Databases
 
 For multiple databases, the database is named after the tenant so there is a one-to-one mapping. Instead of using a global filter, the tenant is used to build the connection string
-and passed back. To allow the case when a user might change their tenant "on the fly" the factory is scoped as `Transient` instead so the tenant is always re-evaluated in case it 
+and passed back. To allow the case when a user might change their tenant "on the fly" the factory is scoped as `Transient` instead so the tenant is always re-evaluated in case it
 changes.
+
+## Performance
+
+You can use the benchmark project to evaluate performance. Be sure to run it in `Release` mode:
+
+```bash
+dotnet run -c Release
+```
+
+Here are the results on my laptop:
+
+|          Method |     Mean |     Error |    StdDev |
+|---------------- |---------:|----------:|----------:|
+|   SingleContext | 1.134 us | 0.0224 us | 0.0249 us |
+| MultipleContext | 3.087 us | 0.0608 us | 0.0964 us |
+
+Although the `Transient` is slower than `Scoped`, it is still a fast operation.
+Another way to think about 3us is 333k requests per second.
+
+---
 
 Feedback? Questions? Message me on Twitter: [@JeremyLikness](https:///www.twitter.com/jeremylikness)
