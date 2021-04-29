@@ -2,6 +2,8 @@
 
 Examples of using multi-tenancy with Entity Framework Core in a Blazor app using the data context factory.
 
+Read the related, detailed blog post [here](https://blog.jeremylikness.com/blog/multitenancy-with-ef-core-in-blazor-server-apps/).
+
 ## Quickstart
 
 1. Clone the repository: `git clone https://github.com/JeremyLikness/BlazorEFCoreMultitenant`
